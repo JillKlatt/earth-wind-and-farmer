@@ -18,7 +18,7 @@ const gameConfig = {
     physics: {
         default: 'matter',
         matter: {
-            debug: false,
+            debug: true,
             // turn gravity off -- not a platforming 2d game
             gravity: { y: 0 }
         },

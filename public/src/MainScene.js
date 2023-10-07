@@ -1,4 +1,5 @@
 import Player from "./Player.js";
+import Pumpkin from "./Pumpkin.js";
 
 export default class MainScene extends Phaser.Scene {
   constructor() {
@@ -8,6 +9,7 @@ export default class MainScene extends Phaser.Scene {
 
   preload() {
     Player.preload(this);
+    Pumpkin.preload(this);
     this.load.image('tiles', 'assets/images/RPGNatureTilesetExtruded.png');
     // this.load.tilemapTiledJSON('map', 'assets/images/natureMap.json');
     this.load.tilemapTiledJSON('map', 'assets/images/map.json');
@@ -26,9 +28,6 @@ export default class MainScene extends Phaser.Scene {
     layer1.setCollisionByProperty({ collides: true });
     this.matter.world.convertTilemapLayer(layer1);
     const layer2 = map.createStaticLayer('Tile Layer 2', tileset, 0, 0);
-
-
-    this.addFoliage();
 
     // CREATE PLAYER
     this.player = new Player({ scene: this, x: 50, y: 50, texture: 'princess', frame: 'princess_walk_1' });
@@ -53,15 +52,6 @@ export default class MainScene extends Phaser.Scene {
     spaceBar.on('down', () => {
       this.song.setMute(this.isPlaying);
       this.isPlaying = !this.isPlaying;
-    })
-  }
-
-  addFoliage() {
-    const foliage = this.map.getObjectLayer('Foliage');
-    foliage.objects.forEach(resource => {
-      const foliageItem = new Phaser.Physics.Matter.Sprite(this.matter.world, resource.x, resource.y, 'foliage', 'tree');
-      foliageItem.setStatic(true);
-      this.add.existing(foliageItem);
     })
   }
 
